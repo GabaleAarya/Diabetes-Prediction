@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Helvetica', sans-serif;;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #edede48e;
+            
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .navigator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            min-width: 150px;
+        }
+
+        .navigator button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigator button:hover {
+            background-color: #2980b9;
+        }
+
+        .page {
+            max-width: 1250px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: bold;
+            color: #1976D2;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            color: #131111;
+        }
+
+        h3 {
+            font-family: 'Lato', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #673AB7;
+        }
+
+        h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #FF7043;
+        }
+
+        p {
+            line-height: 2;
+        }
+
+        h1, h2, h3, h4, p {
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            margin-bottom: 10px;
+        }
+
+        ul li:nth-child(7) {
+            list-style: none;
+            margin-left: -20px;
+        }
+
+        ul li, ol li {
+            margin-bottom: 5px;
+        }
+
+        h2, h3, h4, ul, ol {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        input[type="number"] {
+            width: 50%;
+            padding: 10px;
+            border: 1.0 solid #b6aaaa;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 35%;
+            padding: 15px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: 1.0;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            text-align: center;
+            color: #333333;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .accuracy {
+            text-align: center;
+            color: #555555;
+            margin-top: 10px;
+        }
+
+        .exercise-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1.0 solid #b9a6a6;
+            margin-bottom: 15px;
+        }
+
+        .exercise-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>Health Hub</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigator">
+            <button onclick="showDiabetesPrediction()">Diabetes Prediction</button>
+            <button onclick="showDietPlan()">Diet Plan</button>
+            <button onclick="showExercise()">Exercise</button>
+        </div>
+        <div class="page" id="diabetesPrediction">
+            <h1>Diabetes Prediction Model</h1><br><br>
+            <form method="POST" action="/predict">
+                <div class="form-group">
+                    <label for="fasting-glucose">Fasting Glucose (mg/dL):</label><br>
+                    <input type="number" id="fasting-glucose" name="Fasting Glucose" required>
+                </div>
+                <div class="form-group">
+                    <label for="post-prandial">Post Prandial (mg/dL):</label><br>
+                    <input type="number" id="post-prandial" name="PP " required>
+                </div><br>
+                <button type="submit">Check</button>
+            </form>
+            <div id="result"></div><br><br><br><br><br><br><br><br><br>
+            <p class="accuracy">Our model predicts 94% accurate.</p>
+        </div>
+        <div class="page" id="dietPlan" style="display:none;">
+            <h1>Diet Plan</h1>
+            <p><h2> Diet Plan for Diabetic Patients</h2><br>
+                <img src="{{ url_for('static', filename='start.jpg') }}" alt="Lets Start" width="300" height="300">
+                <h3>Early Morning</h3>
+                <h4>Early Morning
+                A diabetic patient should start the day by drinking lukewarm water. 
+                This will help to flush out the toxins from the body. 
+                You can also add one teaspoon of methi seed powder. 
+                This will eventually help in managing the blood sugar levels.</h4>
+                <br>
+                <h3>Breakfast</h3>
+                <img src="{{ url_for('static', filename='Breakfast.jpg') }}" alt="Breakfast" width="300" height="300">
+                <h4>A bowl of porridge and cucumber
+                    Muesli with milk and one cucumber or tomato
+                    A bowl of wheat flakes with milk and one cucumber or tomato
+                    Prepare moong-dal chilla with at least 2-3 veggies
+                    A bowl of vegetable daliya or upma
+                    2 rotis with 1 bowl of sabzi with a bowl of curd
+                    2 slices of whole wheat bread and omelet with egg white and veggies</h4>
+                    <br>
+                <h3>Mid-Morning</h3>
+                <h4>A cup of green tea with some roasted channa
+                    One whole fruit- apple/pear/orange/few cubes of papaya/guava</h4>
+                <br>
+                <h3>Lunch</h3>
+                <img src="{{ url_for('static', filename='lunch.jpg') }}" alt="Lunch" width="300" height="300">
+                <h4>Only eating to fill the stomach should not be the mantra for diabetic patients. 
+                    Food loaded with nutrients should be the agenda. 
+                    Here are some lunch options that diabetic patients can try for lunch-
+                    
+                    2 chapatis with 1 bowl of sabzi+ 1 bowl of dal/sprouts/curd/buttermilk/2-3 pieces of chicken or fish
+                    1 big bowl of vegetable daliya khichdi with curd
+                    1 bowl of salad/ 2 cucumbers/2 tomatoes+ half a bowl of brown rice + 1 big bowl of sabzi + 1 bowl of dal/sprouts/curd/buttermilk/2-3 piece of chicken/fish</h4>
+                    <br>
+                <h3>Evening Snack</h3>
+                <h4>
+                    1 whole fruit
+                    1 handful boiled or roasted chana
+                    Puffed rice
+                    Buttermilk
+                    Sandwich</h4>
+                    <br>
+                <h3>Dinner</h3>
+                <img src="{{ url_for('static', filename='dinner.png') }}" alt="Dinner" width="300" height="300">
+                <h4>1 bowl of salad/2 cucumbers/2 tomatoes + 2 chapatis with 1 big bowl of sabzi + 1 bowl of dal/sprouts/curd/buttermilk/ 2-3 pieces of chicken/fish
+                    1 big bowl of vegetable daliya khichdi with curd</h4>
+                    <br>
+                <h3>Bedtime Snack</h3>
+                <h4>To reiterate the same, diabetic patients should not keep long gaps between two meals. 
+                    Hence, before going to bed it is recommended to eat nuts</h4><br><br><br>
+            </p>
+        </div>
+        <div class="page" id="exercise" style="display:none;">
+            <h1>Exercise</h1>
+            <h2>Engaging in regular physical activity is beneficial for overall health and can play a significant role in preventing and managing diabetes. Here are the benefits of running, walking, cycling, swimming, and yoga in relation to diabetes prevention:</h2>
+            <div class="exercise-info">
+                <h3>Exercise 1: RUNNING </h3>
+                <img src="{{ url_for('static', filename='running.jpg') }}" alt="Running" width="300" height="300">
+                <p>
+                    <h4>Improved Insulin Sensitivity: Regular running helps improve insulin sensitivity, allowing cells to better respond to insulin and lower blood sugar levels. <br><br>
+                        Weight Management: Running is an effective way to burn calories and maintain a healthy weight, which is crucial for diabetes. <br><br>
+                        Cardiovascular Health: Running enhances cardiovascular fitness, reducing the risk of heart diseases common complication associated with diabetes.</h4></p>
+            </div><br><br>
+            <div class="exercise-info">
+                <h3>Exercise 2: WALKING </h3>
+                <img src="{{ url_for('static', filename='walking.jpg') }}" alt="Walking" width="300" height="300">
+                <p>
+                    <h4>Accessibility: Walking is a low-impact exercise that is easy to incorporate into daily life, making it accessible for people of all fitness levels. <br><br>
+                        Blood Sugar Control: Regular walking can help control blood sugar levels and improve insulin sensitivity. <br><br>
+                        Weight Management: Like running, walking aids in weight management and can contribute to maintaining a healthy body mass index (BMI).</h4></p>
+            </div><br><br>
+            <div class="exercise-info">
+                <h3>Exercise 3: SWIMMING </h3>
+                <img src="{{ url_for('static', filename='swimming.jpg') }}" alt="Swimming" width="300" height="300">
+                <p>
+                    <h4>Low Impact: Swimming is a low-impact exercise, making it suitable for individuals with joint issues or mobility concerns. <br><br>
+                        Muscle Engagement: Swimming engages multiple muscle groups, contributing to improved insulin sensitivity and better blood sugar control. <br><br>
+                        Stress Reduction: The rhythmic nature of swimming can help reduce stress, which is beneficial for overall health and diabetes prevention.</h4></p>
+            </div><br><br>
+            <div class="exercise-info">
+                <h3>Exercise 4: CYCLING </h3>
+                <img src="{{ url_for('static', filename='cycling.jpg') }}" alt="Cycling" width="300" height="300">
+                <p>
+                    <h4>Muscle Activation: Cycling engages large muscle groups, promoting glucose uptake and utilization, which is beneficial for managing blood sugar levels. <br><br>
+                        Cardiovascular Benefits: Cycling is an aerobic exercise that improves cardiovascular health and reduces the risk of diabetes-related complications.</h4></p>
+            <div class="exercise-info">
+                <h3>Exercise 4: YOGA </h3>
+                <img src="{{ url_for('static', filename='yoga.jpg') }}" alt="Yoga" width="300" height="300">
+                <p>
+                    <h4>Stress Reduction: Yoga incorporates mindfulness and relaxation techniques that can help manage stress, which is important for preventing diabetes. <br><br>
+                        Improved Insulin Sensitivity: Certain yoga poses and practices may contribute to improved insulin sensitivity and glucose <br><br>
+                        Flexibility and Balance: Yoga improves flexibility and balance, promoting overall physical well-being and reducing the risk of injury. <br><br><br></h4></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDiabetesPrediction() {
+            document.getElementById("diabetesPrediction").style.display = "block";
+            document.getElementById("dietPlan").style.display = "none";
+            document.getElementById("exercise").style.display = "none";
+        }
+
+        function showDietPlan() {
+            document.getElementById("diabetesPrediction").style.display = "none";
+            document.getElementById("dietPlan").style.display = "block";
+            document.getElementById("exercise").style.display = "none";
+        }
+
+        function showExercise() {
+            document.getElementById("diabetesPrediction").style.display = "none";
+            document.getElementById("dietPlan").style.display = "none";
+            document.getElementById("exercise").style.display = "block";
+        }
+    </script>
+</body>
+</html>
