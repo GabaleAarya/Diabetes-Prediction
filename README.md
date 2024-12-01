@@ -11,8 +11,8 @@ This project predicts whether a person is **non-diabetic (-1)**, **pre-diabetic 
 ## Technologies Used
 - **Python**
 - **Machine Learning** (Support Vector Classifier)
-- **Flask** (for backend, if applicable)
-- **HTML, CSS, JavaScript** (for frontend, if applicable)
+- **Flask** 
+- **HTML, CSS, JavaScript** 
 
 ## How to Use
 1. Input fasting and PP glucose levels.
